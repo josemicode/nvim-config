@@ -27,7 +27,7 @@ require('mason-lspconfig').setup({
 				filetypes = {"c", "cpp", "objc", "objcpp"},
 				root_dir = require('lspconfig').util.root_pattern(".git", "compile_commands.json", "build"),
 				on_attach = function(client, bufnr)
-					print('hello tsserver')
+					print('hello clangd')
 				end
 			})
 		end,
