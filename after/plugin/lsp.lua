@@ -28,7 +28,12 @@ require('mason-lspconfig').setup({
 				root_dir = require('lspconfig').util.root_pattern(".git", "compile_commands.json", "build"),
 				on_attach = function(client, bufnr)
 					print('hello clangd')
-				end
+				end,
+				settings = {
+        				clangd = {
+            					fallbackFlags = {"-std=c++17", "-I C:\\MinGW\\lib\\gcc\\mingw32\\6.3.0\\include\\c++"}
+        				}
+    				}
 			})
 		end,
 	}
