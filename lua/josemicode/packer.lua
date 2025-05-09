@@ -42,34 +42,77 @@ return require('packer').startup(function(use)
 
 	use 'tpope/vim-fugitive'
 
+	-- use {
+	-- 	-- Lang Servers
+	-- 	'VonHeikemen/lsp-zero.nvim',
+	-- 	branch = 'v3.x',
+	-- 	requires = {
+	-- 		--- Uncomment the two plugins below if you want to manage the language servers from neovim
+	-- 		{'williamboman/mason.nvim'},
+	-- 		{'williamboman/mason-lspconfig.nvim'},
+
+	-- 		{'neovim/nvim-lspconfig'},
+	-- 		{'hrsh7th/nvim-cmp'},
+	-- 		{'hrsh7th/cmp-nvim-lsp'},
+	-- 		{'L3MON4D3/LuaSnip'},
+	-- 	}
+	-- }
+
+	-- use {
+	-- 	'williamboman/mason.nvim',
+	-- 	config = function()
+	-- 		require('mason').setup()
+	-- 	end
+	-- }
+
+	-- use {
+	-- 	'williamboman/mason-lspconfig.nvim',
+	-- 	config = function()
+	-- 		require('mason-lspconfig').setup()
+	-- 	end
+	-- }
+
+	-- 1. Explicitly declare nvim-lspconfig with an alias.
 	use {
-		-- Lang Servers
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v3.x',
+		"neovim/nvim-lspconfig",
+		as = "nvim-lspconfig",
+	}
+
+	-- 2. Mason (for managing LSP installations)
+	use {
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup({
+				-- your mason config here if needed.
+			})
+		end,
+	}
+
+	-- 3. Mason-lspconfig, which depends on nvim-lspconfig.
+	use {
+		"williamboman/mason-lspconfig.nvim",
+		requires = { "neovim/nvim-lspconfig" },  -- explicit dependency
+		after = "nvim-lspconfig",
+		-- config = function()
+		-- 	require("mason-lspconfig").setup({
+		-- 		ensure_installed = { "clangd", "pyright", "html", "gopls" },
+		-- 		automatic_setup = false,  -- disable automatic calling of removed API functions
+		-- 	})
+		-- end,
+	}
+
+	-- 4. lsp-zero and its dependencies.
+	use {
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v3.x",
 		requires = {
-			--- Uncomment the two plugins below if you want to manage the language servers from neovim
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
-
-			{'neovim/nvim-lspconfig'},
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'L3MON4D3/LuaSnip'},
-		}
-	}
-
-	use {
-		'williamboman/mason.nvim',
-		config = function()
-			require('mason').setup()
-		end
-	}
-
-	use {
-		'williamboman/mason-lspconfig.nvim',
-		config = function()
-			require('mason-lspconfig').setup()
-		end
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+			-- Exclude nvim-lspconfig from here because we already declared it above.
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "L3MON4D3/LuaSnip" },
+		},
 	}
 
 	use 'tpope/vim-commentary' -- The holy gcc
