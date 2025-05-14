@@ -4,13 +4,9 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
-
-	--use {
-		--	  'nvim-telescope/telescope.nvim', tag = '0.1.6',
-		-- or                            , branch = '0.1.x',
-		--	  requires = { {'nvim-lua/plenary.nvim'} }
-		--} --Main file navigation system
-		use { 'nvim-telescope/telescope.nvim',
+	--Main file navigation system
+	use { 
+		'nvim-telescope/telescope.nvim',
 		tag = '0.1.6',
 		requires = { 
 			{'nvim-lua/plenary.nvim'},
@@ -27,7 +23,7 @@ return require('packer').startup(function(use)
 			} 
 			require('telescope').load_extension('live_grep_args') 
 		end
-	} --Main file navigation system
+	} 
 
 	use 'shaunsingh/nord.nvim' --Winter-ish theme
 
@@ -41,38 +37,6 @@ return require('packer').startup(function(use)
 	use 'mbbill/undotree' --Shows branches that describe file changes
 
 	use 'tpope/vim-fugitive'
-
-	-- use {
-	-- 	-- Lang Servers
-	-- 	'VonHeikemen/lsp-zero.nvim',
-	-- 	branch = 'v3.x',
-	-- 	requires = {
-	-- 		--- Uncomment the two plugins below if you want to manage the language servers from neovim
-	-- 		{'williamboman/mason.nvim'},
-	-- 		{'williamboman/mason-lspconfig.nvim'},
-
-	-- 		{'neovim/nvim-lspconfig'},
-	-- 		{'hrsh7th/nvim-cmp'},
-	-- 		{'hrsh7th/cmp-nvim-lsp'},
-	-- 		{'L3MON4D3/LuaSnip'},
-	-- 	}
-	-- }
-
-	-- use {
-	-- 	'williamboman/mason.nvim',
-	-- 	config = function()
-	-- 		require('mason').setup()
-	-- 	end
-	-- }
-
-	-- use {
-	-- 	'williamboman/mason-lspconfig.nvim',
-	-- 	config = function()
-	-- 		require('mason-lspconfig').setup()
-	-- 	end
-	-- }
-
-	-- 1. Explicitly declare nvim-lspconfig with an alias.
 	use {
 		"neovim/nvim-lspconfig",
 		as = "nvim-lspconfig",
@@ -93,12 +57,6 @@ return require('packer').startup(function(use)
 		"williamboman/mason-lspconfig.nvim",
 		requires = { "neovim/nvim-lspconfig" },  -- explicit dependency
 		after = "nvim-lspconfig",
-		-- config = function()
-		-- 	require("mason-lspconfig").setup({
-		-- 		ensure_installed = { "clangd", "pyright", "html", "gopls" },
-		-- 		automatic_setup = false,  -- disable automatic calling of removed API functions
-		-- 	})
-		-- end,
 	}
 
 	-- 4. lsp-zero and its dependencies.
@@ -133,10 +91,16 @@ return require('packer').startup(function(use)
 	use {
 		'alanfortlink/blackjack.nvim',
 		requires = {'nvim-lua/plenary.nvim'},
-		-- config = function()
-			-- 	require("blackjack").setup()
-			-- end
-		}
+	}
 
-		use 'ggandor/leap.nvim'
-	end)
+	use 'ggandor/leap.nvim'
+
+	use {
+		"folke/noice.nvim",
+		requires = { "MunifTanjim/nui.nvim" },
+		config = function()
+			require("noice").setup()
+		end,
+	}
+
+end)
