@@ -103,13 +103,30 @@ return require('packer').startup(function(use)
 		end,
 	}
 
-	-- use {
-	-- 	"karb94/neoscroll.nvim",
-	-- 	config = function()
-	-- 		require("neoscroll").setup()
-	-- 	end,
-	-- }
-	
 	use 'karb94/neoscroll.nvim'
+
+
+	use {
+		"yetone/avante.nvim",
+		-- build step needed to compile the binary client
+		build = "make",
+
+		-- core dependencies for UI & I/O
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"stevearc/dressing.nvim",
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				ft = { "markdown", "Avante" },
+				opts = { file_types = { "markdown", "Avante" } },
+			},
+		},
+
+		config = function()
+			require("avante")
+		end,
+	}
 
 end)
