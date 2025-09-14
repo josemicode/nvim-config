@@ -8,18 +8,30 @@ end
 avante.setup({
 	provider = "gemini", -- change at will
 
-	-- openai = {
-	-- 	-- grab key from env; must export PROVIDER_API_KEY
-	-- 	api_key = os.getenv("OPENAI_API_KEY"),
+	openai = {
+		-- grab key from env; must export PROVIDER_API_KEY
+		-- api_key = os.getenv("OPENAI_API_KEY"),
+		api_key_name = OPENAI_API_KEY,
 
-	-- 	-- which model to talk to
-	-- 	model    = "gpt-4o",
-	-- 	endpoint = "https://api.openai.com/v1/chat/completions",
-	-- 	-- params
-	-- 	timeout      = 30000,
-	-- 	temperature  = 0.2,
-	-- 	max_tokens   = 2048,
-	-- },
+		-- which model to talk to
+		model    = "gpt-4o-mini",
+		-- endpoint = "https://api.openai.com/v1/chat/completions",
+		-- params
+		timeout      = 30000,
+		temperature  = 0.2,
+		max_tokens   = 2048,
+	},
+
+	gemini = {
+		model = "gemini-2.0-flash",
+		-- Set your Gemini API key in your environment as GEMINI_API_KEY
+		api_key_name = GEMINI_API_KEY,
+		-- api_key = os.getenv("GEMINI_API_KEY"),
+
+		timeout = 30000,
+		temperature = 0,
+		max_tokens = 8192,
+	},
 
 	-- claude = {
 	-- 	-- Set your Anthropic API key in your environment as CLAUDE_API_KEY
@@ -32,17 +44,6 @@ avante.setup({
 	-- 	temperature = 0.2,
 	-- 	max_tokens = 2048,
 	-- },
-
-	gemini = {
-		model = "gemini-2.0-flash",
-		-- Set your Gemini API key in your environment as GEMINI_API_KEY
-		api_key_name = GEMINI_API_KEY,
-		-- api_key = os.getenv("GEMINI_API_KEY"),
-
-		timeout = 30000,
-		temperature = 0,
-		max_tokens = 8192,
-	},
 
 	mappings = {
 		ask     = "<leader>qw",   -- open a chat prompt (normal & visual)
